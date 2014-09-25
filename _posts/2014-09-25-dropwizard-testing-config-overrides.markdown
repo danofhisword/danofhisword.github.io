@@ -33,9 +33,9 @@ You can overide some of the configs like following, where I use a base config.ym
 {% highlight java %}
  
    @ClassRule
-    public static final DropwizardAppRule<AuthinatorConfig> RULE =
+    public static final DropwizardAppRule<YourConfig> RULE =
     
-            new DropwizardAppRule<>(AuthinatorService.class, "/path/to/your/config.yml",
+            new DropwizardAppRule<>(YourService.class, "/path/to/your/config.yml",
                     ConfigOverride.config("server.applicationConnectors[0].port", "443"),           
                     ConfigOverride.config("someother.magicConfig", "someothervalue")
                     );

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+	<meta name="google-site-verification" content="cXw3sTxFGBIgQyQV8aRFRuAtC_DJ4-MZUzjuhhHwsEY" />
     <title>Dropwizard Integrated Testing and ConfigOverride</title>
     <meta name="description" content="Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... Opinions are my own.
 ">
@@ -94,9 +94,9 @@
 <p>You can overide some of the configs like following, where I use a base config.yml file, then override a port and set another config value: </p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@ClassRule</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;</span><span class="n">AuthinatorConfig</span><span class="o">&gt;</span> <span class="n">RULE</span> <span class="o">=</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;</span><span class="n">YourConfig</span><span class="o">&gt;</span> <span class="n">RULE</span> <span class="o">=</span>
     
-            <span class="k">new</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;&gt;(</span><span class="n">AuthinatorService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;/path/to/your/config.yml&quot;</span><span class="o">,</span>
+            <span class="k">new</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;&gt;(</span><span class="n">YourService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;/path/to/your/config.yml&quot;</span><span class="o">,</span>
                     <span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;server.applicationConnectors[0].port&quot;</span><span class="o">,</span> <span class="s">&quot;443&quot;</span><span class="o">),</span>           
                     <span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;someother.magicConfig&quot;</span><span class="o">,</span> <span class="s">&quot;someothervalue&quot;</span><span class="o">)</span>
                     <span class="o">);</span></code></pre></div>
@@ -120,7 +120,7 @@ There’s probably a sensible reason here for what is or isn’t a collection, b
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">Shippity, ship, ship some code</h2>
+    <h2 class="footer-heading"><!--Shippity, ship, ship some code--></h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-1">

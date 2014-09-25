@@ -2,7 +2,7 @@
 title: Shippity, ship, ship some code
 description: > # this means to ignore newlines until "baseurl:"
  Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone...
- Opinions are my own.
+ opinions are my own.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://danofhisword.com" # the base hostname & protocol for your site
 twitter_username: danofhisword

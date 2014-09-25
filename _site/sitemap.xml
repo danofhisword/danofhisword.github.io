@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-testing-config-overrides.html</loc>
+    
+    <lastmod>2014-09-26T03:06:35+10:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-test-rule-validation.html</loc>
+    
+    <lastmod>2014-09-26T03:06:35+10:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://danofhisword.com/dev/dropwizard/2014/09/19/manually-dropwizard-validation.html</loc>
+    
+    <lastmod>2014-09-19T03:06:35+10:00</lastmod>
+    
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://danofhisword.com/about/</loc>
+    <lastmod>2014-09-25T19:47:12+10:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://danofhisword.com/</loc>
+    <lastmod>2014-09-25T19:47:12+10:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  
+  
+</urlset>

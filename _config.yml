@@ -9,3 +9,6 @@ twitter_username: danofhisword
 
 # Build settings
 markdown: kramdown
+
+gems:
+  - jekyll-sitemap

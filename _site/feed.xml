@@ -6,12 +6,62 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Sep 2014 14:41:58 +1000</pubDate>
-    <lastBuildDate>Thu, 25 Sep 2014 14:41:58 +1000</lastBuildDate>
+    <pubDate>Thu, 25 Sep 2014 17:15:01 +1000</pubDate>
+    <lastBuildDate>Thu, 25 Sep 2014 17:15:01 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Dropwizard Validation and ResourceTestRule</title>
+        <title>Dropwizard Integrated Testing and ConfigOverride</title>
+        <description>&lt;p&gt;Dropwizard supports integrated testing of via &lt;a href=&quot;http://dropwizard.io/manual/testing.html#integrated-testing&quot;&gt;DropwizardAppRule&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;When you spin up the app, you might want to use your default config.yml file and just override some of the values, specific for your test scenario. &lt;/p&gt;
+
+&lt;p&gt;You can use DropwizardAppRule and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-testing/src/main/java/io/dropwizard/testing/junit/ConfigOverride.java&quot;&gt;io.dropwizard.testing.junit.ConfigOverride&lt;/a&gt; to achieve this. &lt;/p&gt;
+
+&lt;p&gt;Say you have a config yml like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nl&quot;&gt;server:&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;applicationConnectors:&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;
+         &lt;span class=&quot;nl&quot;&gt;port:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;481&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;adminConnectors:&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;
+         &lt;span class=&quot;nl&quot;&gt;port:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;482&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;someother:&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;magicConfig:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;somevalue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can overide some of the configs like following, where I use a base config.yml file, then override a port and set another config value: &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@ClassRule&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DropwizardAppRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthinatorConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RULE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DropwizardAppRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AuthinatorService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/path/to/your/config.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;server.applicationConnectors[0].port&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;443&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;           
+                    &lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;someother.magicConfig&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;someothervalue&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You’ll note that some config nodes are collections (like server.applicationConnectors above), and you have to index reference them… &lt;/p&gt;
+
+&lt;p&gt;I didn’t find a good way to figure this out, other than using my debugger and seeing what was and wasn’t a collection as the DropwizardAppRule started up. 
+There’s probably a sensible reason here for what is or isn’t a collection, but I didn’t think that hard about it :) &lt;/p&gt;
+
+&lt;p&gt;Anyways, I couldn’t find much info online about using ConfigOverides, so after a bit of source code digging this was what I came up with, hope it helps!&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 26 Sep 2014 03:06:35 +1000</pubDate>
+        <link>http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-testing-config-overrides.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-testing-config-overrides.html</guid>
+        
+        
+        <category>dev</category>
+        
+        <category>dropwizard</category>
+        
+      </item>
+    
+      <item>
+        <title>Dropwizard Validation and ResourceTestRule - javax.validation.ConstraintViolationException</title>
         <description>&lt;p&gt;Dropwizard support testing of Resources via &lt;a href=&quot;http://dropwizard.io/manual/testing.html#testing-resources&quot;&gt;ResourceTestRules&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you’re using Dropwizard &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;Validation&lt;/a&gt; and you want to test the 422 responses and error messages using ResourceTestRule, you might try something like …&lt;/p&gt;

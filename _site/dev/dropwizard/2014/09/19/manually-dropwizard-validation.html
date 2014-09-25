@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Going Manual on DropWizard Validation</title>
+    <title>Going Manual on Dropwizard Validation</title>
     <meta name="description" content="Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... Opinions are my own.
 ">
 
@@ -57,17 +57,17 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Going Manual on DropWizard Validation</h1>
+    <h1 class="post-title">Going Manual on Dropwizard Validation</h1>
     <p class="post-meta">Sep 19, 2014</p>
   </header>
 
   <article class="post-content">
-    <p>DropWizard resources support some great declarative <a href="http://dropwizard.io/manual/core.html#validation">validation</a> with the @Valid annotation. </p>
+    <p>Dropwizard resources support some great declarative <a href="http://dropwizard.io/manual/core.html#validation">validation</a> with the @Valid annotation. </p>
 
 <p>However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
 See <a href="https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jersey/src/main/java/io/dropwizard/jersey/validation/ConstraintViolationExceptionMapper.java">ConstraintViolationExceptionMapper</a> and <a href="https://github.com/dropwizard/dropwizard/blob/2655ac703a0f6ddb4eae933a74dae3d12fde287f/dropwizard-validation/src/main/java/io/dropwizard/validation/ConstraintViolations.java">ConstraintViolations</a> format method.</p>
 
-<p>If the default DropWizard behaviour meets your needs (often the case) you can stop reading now!</p>
+<p>If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!</p>
 
 <p>For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response. </p>
 
@@ -82,7 +82,7 @@ See <a href="https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jer
 
 <p>You can usually build on that to create a custom response as you need, either manually rolling a Response object or by creating exceptions and plumbing that into the response pipeline with some <a href="https://dropwizard.github.io/dropwizard/manual/core.html#error-handling">error handling</a></p>
 
-<p>Like with anything, if you decide to go it alone, instead of using the standard built in Drop Wizard functionality, make sure you have a good reason!</p>
+<p>Like with anything, if you decide to go it alone, instead of using the standard built in Dropwizard functionality, make sure you have a good reason!</p>
 
 
   </article>

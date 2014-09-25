@@ -6,18 +6,73 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Sep 2014 14:14:59 +1000</pubDate>
-    <lastBuildDate>Thu, 25 Sep 2014 14:14:59 +1000</lastBuildDate>
+    <pubDate>Thu, 25 Sep 2014 14:41:58 +1000</pubDate>
+    <lastBuildDate>Thu, 25 Sep 2014 14:41:58 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Going Manual on DropWizard Validation</title>
-        <description>&lt;p&gt;DropWizard resources support some great declarative &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;validation&lt;/a&gt; with the @Valid annotation. &lt;/p&gt;
+        <title>Dropwizard Validation and ResourceTestRule</title>
+        <description>&lt;p&gt;Dropwizard support testing of Resources via &lt;a href=&quot;http://dropwizard.io/manual/testing.html#testing-resources&quot;&gt;ResourceTestRules&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you’re using Dropwizard &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;Validation&lt;/a&gt; and you want to test the 422 responses and error messages using ResourceTestRule, you might try something like …&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// setup you ResourceTestRule&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@ClassRule&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResourceTestRule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resources&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResourceTestRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;TestWebResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;           
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// ... and in your actual test you might do &lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ClientResponse&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resources&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/test/something&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClientResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someInvalidRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+  &lt;span class=&quot;c1&quot;&gt;// Expecting a 422 ... &lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;422&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But instead you might get a RuntimeException something like… &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ERROR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2014&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sun&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;spi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ContainerResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RuntimeException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;could&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapped&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;throwing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HTTP&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;container&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;javax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ConstraintViolationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;had&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;errors:&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dropwizard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jackson&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JacksonMessageBodyProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JacksonMessageBodyProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;95&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dropwizard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The trick is you, you need to wire up a provider to handle the Exception as per Dropwizard’s normal pipeline.&lt;/p&gt;
+
+&lt;p&gt;You can do that as follows, adding the ConstraintViolationExceptionMapper using “addProvider”:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@ClassRule&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResourceTestRule&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resources&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResourceTestRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;TestWebResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolationExceptionMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, you should see your normal 422 responses and error messages come out when using ResourceTestRule! &lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 26 Sep 2014 03:06:35 +1000</pubDate>
+        <link>http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-test-rule-validation.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-test-rule-validation.html</guid>
+        
+        
+        <category>dev</category>
+        
+        <category>dropwizard</category>
+        
+      </item>
+    
+      <item>
+        <title>Going Manual on Dropwizard Validation</title>
+        <description>&lt;p&gt;Dropwizard resources support some great declarative &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;validation&lt;/a&gt; with the @Valid annotation. &lt;/p&gt;
 
 &lt;p&gt;However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
 See &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jersey/src/main/java/io/dropwizard/jersey/validation/ConstraintViolationExceptionMapper.java&quot;&gt;ConstraintViolationExceptionMapper&lt;/a&gt; and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/2655ac703a0f6ddb4eae933a74dae3d12fde287f/dropwizard-validation/src/main/java/io/dropwizard/validation/ConstraintViolations.java&quot;&gt;ConstraintViolations&lt;/a&gt; format method.&lt;/p&gt;
 
-&lt;p&gt;If the default DropWizard behaviour meets your needs (often the case) you can stop reading now!&lt;/p&gt;
+&lt;p&gt;If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!&lt;/p&gt;
 
 &lt;p&gt;For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response. &lt;/p&gt;
 
@@ -32,7 +87,7 @@ See &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwi
 
 &lt;p&gt;You can usually build on that to create a custom response as you need, either manually rolling a Response object or by creating exceptions and plumbing that into the response pipeline with some &lt;a href=&quot;https://dropwizard.github.io/dropwizard/manual/core.html#error-handling&quot;&gt;error handling&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Like with anything, if you decide to go it alone, instead of using the standard built in Drop Wizard functionality, make sure you have a good reason!&lt;/p&gt;
+&lt;p&gt;Like with anything, if you decide to go it alone, instead of using the standard built in Dropwizard functionality, make sure you have a good reason!&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 19 Sep 2014 03:06:35 +1000</pubDate>

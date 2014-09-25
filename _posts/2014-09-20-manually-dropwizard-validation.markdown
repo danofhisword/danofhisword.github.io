@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Going Manual on DropWizard Validation"
+title:  "Going Manual on Dropwizard Validation"
 date:   2014-09-18 17:06:35
 categories: dev dropwizard
 ---
 
-DropWizard resources support some great declarative [validation][dwvalidation] with the @Valid annotation. 
+Dropwizard resources support some great declarative [validation][dwvalidation] with the @Valid annotation. 
 
 However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
 See [ConstraintViolationExceptionMapper][dwConstraintViolationExceptionMapper] and [ConstraintViolations][dwConstraintViolations] format method.
 
-If the default DropWizard behaviour meets your needs (often the case) you can stop reading now!
+If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!
 
 For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response. 
 
@@ -27,7 +27,7 @@ Jump into your debugger and inspect the violations objects returned ... of inter
 
 You can usually build on that to create a custom response as you need, either manually rolling a Response object or by creating exceptions and plumbing that into the response pipeline with some [error handling][dwerrorhandling]
 
-Like with anything, if you decide to go it alone, instead of using the standard built in Drop Wizard functionality, make sure you have a good reason!
+Like with anything, if you decide to go it alone, instead of using the standard built in Dropwizard functionality, make sure you have a good reason!
 
 [dwvalidation]:      http://dropwizard.io/manual/core.html#validation
 [dwerrorhandling]: https://dropwizard.github.io/dropwizard/manual/core.html#error-handling

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Dropwizard Validation and ResourceTestRule"
+title:  "Dropwizard Validation and ResourceTestRule - javax.validation.ConstraintViolationException"
 date:   2014-09-25 17:06:35
 categories: dev dropwizard
 ---

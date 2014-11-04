@@ -2,13 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shippity, ship, ship some code</title>
-    <description>Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... Opinions are my own.
+    <description>Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... opinions are my own.
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Sep 2014 20:38:23 +1000</pubDate>
-    <lastBuildDate>Thu, 25 Sep 2014 20:38:23 +1000</lastBuildDate>
+    <pubDate>Tue, 04 Nov 2014 15:29:14 +1000</pubDate>
+    <lastBuildDate>Tue, 04 Nov 2014 15:29:14 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>DropwizardAppRule, Wiremock and GZIP</title>
+        <description>&lt;p&gt;I had a bit of challenge when using WireMock to do some stubbed testing in my DropWizard app. &lt;/p&gt;
+
+&lt;p&gt;This was because wiremock didn’t support GZIP and the Jersey client had it on by default.
+I found my requests weren’t matching up when using .withRequestBody()…&lt;/p&gt;
+
+&lt;p&gt;The result being the same as described &lt;a href=&quot;https://github.com/tomakehurst/wiremock/issues/106&quot;&gt;here&lt;/a&gt;, “com.github.tomakehurst.wiremock.common.Log4jNotifier: URL /foobar is match, but body is not”&lt;/p&gt;
+
+&lt;p&gt;I got around this in my test by having the stubbed test run without GZIP on the default DropWizard Jersey Client
+As I was using a DropwizardAppRule, I used config override as below … &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;defaultHttpClient.gzipEnabled&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;false&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;defaultHttpClient.gzipEnabledForRequests&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;false&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see my post on &lt;a href=&quot;http://danofhisword.com/dev/dropwizard/2014/09/25/dropwizard-testing-config-overrides.html&quot;&gt;Config Overrides&lt;/a&gt; for more info on using overrides in general. &lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 05 Nov 2014 01:20:00 +1000</pubDate>
+        <link>http://danofhisword.com/test/dev/dropwizard/2014/11/05/dropwizard-gzip-wiremock.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/test/dev/dropwizard/2014/11/05/dropwizard-gzip-wiremock.html</guid>
+        
+        
+        <category>test</category>
+        
+        <category>dev</category>
+        
+        <category>dropwizard</category>
+        
+      </item>
     
       <item>
         <title>Dropwizard Integrated Testing and ConfigOverride</title>

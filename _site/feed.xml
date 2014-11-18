@@ -6,9 +6,159 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 04 Nov 2014 15:29:14 +1000</pubDate>
-    <lastBuildDate>Tue, 04 Nov 2014 15:29:14 +1000</lastBuildDate>
+    <pubDate>Tue, 18 Nov 2014 17:37:32 +1000</pubDate>
+    <lastBuildDate>Tue, 18 Nov 2014 17:37:32 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Sharing and Isolating Steps and State in Cucumber JVM and Groovy</title>
+        <description>&lt;p&gt;I’ve been doing a bunch of BDD acceptance tests and automation lately, having some wins and losses and learning new stuff as I go. 
+Whilst enjoying working with Cucumber, I had a bit of challenge with sharing and issolation.&lt;/p&gt;
+
+&lt;p&gt;I’m not sure I like the solution I arrived at, I need to use it in anger more to see that for myself. 
+It’s a bit complex and I still don’t like the global-ness of the world stuff, could be evolved somewhat. 
+I hope it at least gives some ideas to others or helps someone come up with something more elegant!&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The problem …&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;I was writing a bunch of scenarios for Features and wanted to re-use Steps and related code across various Features.&lt;/p&gt;
+
+&lt;p&gt;I was hoping to make it quicker to compose new Scenarios, quicker to modify and maintain by drying up my code a bit.
+Cucumber and Groovy can be a bit challenging, the way step files are compiled and the scope of variables between them seemed to cause me the challenges.&lt;/p&gt;
+
+&lt;p&gt;I also desired to encapsulate some state and operations so they are not shared, to avoid wierd global state side-effects impacting Scenarios. &lt;/p&gt;
+
+&lt;p&gt;My general desire was:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;A JUnit runnable which ran my Features based on a Annotation (e.g. @AcceptanceTest).&lt;/li&gt;
+    &lt;li&gt;Many features, multiple Feature files (one per Feature), multiple Scenarios within the Feature.&lt;/li&gt;
+	&lt;li&gt;A dedicated Step file for a Feature, which also contains state for the Features Scenarios.&lt;/li&gt;
+	&lt;li&gt;A shared Step file and class for the bits I wanted to re-use across Features.&lt;/li&gt;
+	&lt;li&gt;Independence of tests, state not carried over between scenarios.&lt;/li&gt;
+	&lt;li&gt;Not too complex/abstract to understand (not sure I got there). Clear hierarchy, not spaghetti.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/CucumberSharing.gif&quot; height=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Some of the pains I seemed to encounter:&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;You can&#39;t see variables defined in one step file in another step file&lt;/li&gt;
+	&lt;li&gt;You can&#39;t see variables in global scope (or world scope) within any classes within step files&lt;/li&gt;
+	&lt;li&gt;Can&#39;t have steps with the same &quot;phrase&quot; in multiple feature files, they clash at runtime&lt;/li&gt;
+	&lt;li&gt;Even using glue to try and separate steps with separate JUnit runnable tests, it seems Cucumber will still by convention find your other steps and they clash&lt;/li&gt;
+	&lt;li&gt;Mix-ins seem useful, but seem to get themselves in a pickle when running in cucumber, things getting defined in scope you wouldn&#39;t expect and lazy re-initialising when you don&#39;t expect&lt;/li&gt;
+	&lt;li&gt;World can only be defined once, you can&#39;t redefine it or add to it easily&lt;/li&gt;
+	&lt;li&gt;I even got in a weird state where the one Step file was being compiled (I think) twice, saying Steps were duplicates of themselves... that was fun.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;b&gt;Where I’m at so far … &lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;I used a combination of World() and Feature specific “State” classes in Step files.&lt;/p&gt;
+
+&lt;p&gt;I defined the World once, but I use @Before hooks to refresh the World properties in place.&lt;/p&gt;
+
+&lt;p&gt;Note, I also pass the world reference in (delegate) when I create the step state, so I can use properties from the world internally or delegate to it.
+This was kind of the discovery for me that led to the pattern I have now for better or worse. &lt;/p&gt;
+
+&lt;p&gt;Here’s an example shared steps file:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;World&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// By delegating World to SharedWorld, we can see it in other step files&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SharedWorld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SharedWorld&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;MySharedProperty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sharedProperty&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Some shared functions I want to call elsewhere&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mySharedMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(~&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;I&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;did&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checks$&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Cool, I can see this stuff, it&amp;#39;s in World scope, I&amp;#39;ll use it&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mySharedMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;    
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sharedProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And here is an example feature steps:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;MyFeatureTestState&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;featureTestState&lt;/span&gt;
+ 
+&lt;span class=&quot;nf&quot;&gt;Before&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@MyFeature&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Re-initialise the state before the test&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Maybe I should re-init the world here too? &lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;featureTestState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MyFeatureTestState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// delegate is shared world delegate&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyFeatureTestState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// Pass in the world, so we can reference values from world scope in here&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MyFeatureTestState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;world&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;MyFeatureProperty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myFeatureProperty&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;myFeatureMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// So you can access world values in here now&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;world&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sharedProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;myFeatureProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ 
+&lt;span class=&quot;n&quot;&gt;Then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(~&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specific&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step$&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// So I can access my feature state here by name&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;featureTestState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;myFeatureMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;featureTestState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;myFeatureProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+ 
+    &lt;span class=&quot;c1&quot;&gt;// I can also access my shared state as the World&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sharedProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And a feature: &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@MyFeature&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Feature:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;Scenario:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Made&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specific&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;I&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;did&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stuff&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checks&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specific&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specific&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;b&gt;UPDATE&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;A collegue of mine also mentioned the use of the Groovy &lt;a href=&quot;http://groovy.codehaus.org/gapi/groovy/transform/Field.html&quot;&gt;@Field&lt;/a&gt; annotation on your global fields, so you could see them in other step files. &lt;/p&gt;
+
+&lt;p&gt;Probably something to use at your discretion w.r.t global state.&lt;/p&gt;
+
+&lt;p&gt;I need to play with it some more, could be a simpler solution than what I have above!  &lt;/p&gt;
+
+&lt;p&gt;In shared script:&lt;/p&gt;
+
+&lt;p&gt;@Field
+SomeObject myObject&lt;/p&gt;
+
+&lt;p&gt;In other Groovy scripts:&lt;/p&gt;
+
+&lt;p&gt;myObject.doSomething()&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 19 Nov 2014 02:45:00 +1000</pubDate>
+        <link>http://danofhisword.com/test/dev/cucumber/bdd/2014/11/19/cucumber-groovy-sharing-steps.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/test/dev/cucumber/bdd/2014/11/19/cucumber-groovy-sharing-steps.html</guid>
+        
+        
+        <category>test</category>
+        
+        <category>dev</category>
+        
+        <category>cucumber</category>
+        
+        <category>bdd</category>
+        
+      </item>
     
       <item>
         <title>DropwizardAppRule, Wiremock and GZIP</title>

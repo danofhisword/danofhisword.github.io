@@ -6,8 +6,8 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 18 Nov 2014 18:00:05 +1000</pubDate>
-    <lastBuildDate>Tue, 18 Nov 2014 18:00:05 +1000</lastBuildDate>
+    <pubDate>Tue, 18 Nov 2014 18:04:12 +1000</pubDate>
+    <lastBuildDate>Tue, 18 Nov 2014 18:04:12 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -143,21 +143,6 @@ SomeObject myObject&lt;/p&gt;
 &lt;p&gt;In other Groovy scripts:&lt;/p&gt;
 
 &lt;p&gt;myObject.doSomething()&lt;/p&gt;
-
-&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = &#39;danofhisword&#39;; // required: replace example with your forum shortname
-
-    /* * * DON&#39;T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement(&#39;script&#39;); dsq.type = &#39;text/javascript&#39;; dsq.async = true;
-        dsq.src = &#39;//&#39; + disqus_shortname + &#39;.disqus.com/embed.js&#39;;
-        (document.getElementsByTagName(&#39;head&#39;)[0] || document.getElementsByTagName(&#39;body&#39;)[0]).appendChild(dsq);
-    })();
-&lt;/script&gt;
-
-&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
 
 </description>
         <pubDate>Wed, 19 Nov 2014 02:45:00 +1000</pubDate>

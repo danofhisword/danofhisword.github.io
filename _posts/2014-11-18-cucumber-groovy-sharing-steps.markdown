@@ -135,11 +135,11 @@ Then some feature specific step    # a feature specific step
 
 <b>UPDATE</b>
 
-A collegue of mine also mentioned the use of the Groovy [@Field][GroovyField] annotation on your global fields, so you could see them in other step files. 
+Someone also mentioned to me the use of the Groovy [@Field][GroovyField] annotation on your global fields, so you could see them in other step files. 
 
 Probably something to use at your discretion w.r.t global state.
 
-I need to play with it some more, could be a simpler solution than what I have above!  
+I need to play with it some more, could be a much simpler solution than what I have above for sharing!   
 
 In shared script:
 

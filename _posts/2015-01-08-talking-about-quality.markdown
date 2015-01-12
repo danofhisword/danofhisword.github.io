@@ -24,7 +24,7 @@ During Iteration Zero we take a moment to talk about what the team believes is q
 I say "values" and not "standards", "rules" and "process" ... rules were meant to be broken right? :)
 
 We then take discussion outcomes and use practices which support our values.
-As an ongoing checkpoint we revist the values in retros, to check if the our values or practices nead realignment.  
+As an ongoing checkpoint we revist the values in retros, to check if the our values or practices need realignment.  
 Taking an hour to workshop at the start and 5 minutes in retros can pay back many times over.
 Once the practices become culture we often don't even need to revisit anymore.
 
@@ -42,7 +42,7 @@ The rapid ability to change the codebase due to the design quality was the comme
 
 Is quality even a priority? Decide that first. 
 All "stakeholders" in the project/team/product should agree if it is a priority. 
-That should include the folk who are paying the bills and while own the product etc. 
+That should include the folk who are paying the bills and will own the product etc. 
 
 A set of Success Sliders can help here... I find that when it's made visible, few people put Quality down the bottom, unless there is <u>purposeful reason</u> to do so. 
 

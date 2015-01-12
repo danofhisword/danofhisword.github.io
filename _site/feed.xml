@@ -2,13 +2,184 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Shippity, ship, ship some code</title>
-    <description>Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... opinions are my own.
+    <description>Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... opinions are my own. Play nice, be kind.
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 18 Nov 2014 18:04:12 +1000</pubDate>
-    <lastBuildDate>Tue, 18 Nov 2014 18:04:12 +1000</lastBuildDate>
+    <pubDate>Mon, 12 Jan 2015 10:13:46 +1000</pubDate>
+    <lastBuildDate>Mon, 12 Jan 2015 10:13:46 +1000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Talking About Quality?</title>
+        <description>&lt;p&gt;Over the last 12 months I’ve been thinking about “quality” a lot and what it means in lean and agile teams.&lt;/p&gt;
+
+&lt;p&gt;The thing is, quality means different things to different people;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you’re thinking “product” or lean startup, quality might be a factor of &lt;i&gt;“features users love and not wasting time building stuff no-one wants”&lt;/i&gt;.
+If you’re code focused, quality might be be a factor of &lt;i&gt;“being able to sustainably deliver working software at a rapid rate”&lt;/i&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nobody wants to fall into failure demand fixing up nasty code or dud features all the time … you can decide what quality means to you.&lt;/p&gt;
+
+&lt;p&gt;My experience is, expecially where culture is still maturing, miss-alignment can lead to people, product and technical problems.&lt;/p&gt;
+
+&lt;p&gt;The neat thing is, smart people who care and talk (and listen!) about quality find a shared understanding quickly. 
+Even better, if handled the right way, quality values become culture.&lt;/p&gt;
+
+&lt;p&gt;One of the actions I’ve been introducing to new teams (as they form) is a “Quality Values” discussion. 
+During Iteration Zero we take a moment to talk about what the team believes is quality and the things we value.
+I say “values” and not “standards”, “rules” and “process” … rules were meant to be broken right? :)&lt;/p&gt;
+
+&lt;p&gt;We then take discussion outcomes and use practices which support our values.
+As an ongoing checkpoint we revist the values in retros, to check if the our values or practices nead realignment.&lt;br /&gt;
+Taking an hour to workshop at the start and 5 minutes in retros can pay back many times over.
+Once the practices become culture we often don’t even need to revisit anymore.&lt;/p&gt;
+
+&lt;h2&gt;In Practice &lt;/h2&gt;
+
+&lt;p&gt;I’ve experienced a team agree that commit test automation was a big Quality Value for them (helping code design quality).
+The team revisited it at first retro and found it was low (and the code design reflected that).&lt;/p&gt;
+
+&lt;p&gt;Everyone agreed the Quality Value was still important, and took steps to adjust practices and test coverage was almost 100% next retro and refactored code design quality was higher.We adjusted our practices and that became part of our team culture. Test automation continued to remain high, it was just a given and it worked for us. &lt;/p&gt;
+
+&lt;p&gt;The rapid ability to change the codebase due to the design quality was the commercial payback of the Quality Values. &lt;/p&gt;
+
+&lt;h2&gt;How to Get There - Workshop It!&lt;/h2&gt;
+
+&lt;p&gt;Is quality even a priority? Decide that first. 
+All “stakeholders” in the project/team/product should agree if it is a priority. 
+That should include the folk who are paying the bills and while own the product etc. &lt;/p&gt;
+
+&lt;p&gt;A set of Success Sliders can help here… I find that when it’s made visible, few people put Quality down the bottom, unless there is &lt;u&gt;purposeful reason&lt;/u&gt; to do so. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/SuccessSliders.png&quot; height=&quot;200px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;{image borrowed from &lt;a href=&quot;http://www.slideshare.net/smithcdau/the-speed-to-cool-agile-testing-building-quality-in-39135501&quot;&gt;Craig Smith’s The Speed to Cool: Agile Testing &amp;amp; Building Quality In&lt;/a&gt;}&lt;/p&gt;
+
+&lt;p&gt;Next, share your values … what do you mean when you put quality up the top?&lt;/p&gt;
+
+&lt;p&gt;Anyone that knows me knows I’m big on physical sticky notes! 
+They are real, fun and fast (it parrallelizes the process of getting everyones ideas).&lt;/p&gt;
+
+&lt;p&gt;So maybe start off with a question; &lt;i&gt;“so we agree quality is priority. What do you believe is quality and what do you think it achieves”&lt;/i&gt;.
+Then have people busy themselves in a timebox sticking notes on the wall.
+Then someone can organizes the notes into themes or common groupings. 
+Just talk them through, agree, disagree, debate, talk, listen, come out with a manageable set of ideas that represents your values. &lt;/p&gt;
+
+&lt;p&gt;You can then do something as simple as keep these on your team space wall, nice and visible and tick vote them in retro if going poorly.
+Or if you like the electronic ways (which I don’t), add them in your wiki or some list you can revisit.&lt;/p&gt;
+
+&lt;p&gt;Put them on the wall, allow people to talk about your Quality Values, let people know your values (especially new team members).
+Keep practicing your values, adapt your values if you need. &lt;/p&gt;
+
+&lt;p&gt;Some of the stuff that’s come up for my teams includes more technical things like: &lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;We&#39;ll make sure keeping builds green is a priority&lt;/li&gt;
+    &lt;li&gt;We&#39;ll keep things simple, simplest thing that works&lt;/li&gt;
+    &lt;li&gt;We&#39;ll make sure our product failing doesn&#39;t cause others to fail&lt;/li&gt;
+    &lt;li&gt;We&#39;ll make sure our product performs under load&lt;/li&gt;
+    &lt;li&gt;We&#39;ll automate as much acceptance testing as we can&lt;/li&gt;
+    &lt;li&gt;We&#39;ll embrace refactoring our code when it&#39;s valuable&lt;/li&gt;
+    &lt;li&gt;We&#39;ll ship small batches often&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;and people things like: &lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;We&#39;ll actively engage with others when we need guidance&lt;/li&gt;
+    &lt;li&gt;We&#39;ll show empathy to those who follow us, with monitoring and alerting, correct logging/exception handling and supporting materials&lt;/li&gt;
+    &lt;li&gt;We&#39;ll actively leverage pairing and &quot;over the shoulder&quot; review with peers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;and product things like:  &lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;We&#39;ll make sure our product works across browsers X, Y and Z&lt;/li&gt;
+    &lt;li&gt;We&#39;ll make sure our UI&#39;s are intuitive and simple for users&lt;/li&gt;
+    &lt;li&gt;We&#39;ll test and use data to make decisions about what&#39;s important to users&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ve found a list of 15-20 still manageable on a working basis, or distil it back to a smaller set of values to focus on at any time as the team matures. 
+Communicate them at a high level even, maybe you believe in “Technical Quality, People Quality, Product Quality” … whatever works, &lt;b&gt;the discussion is the important bit&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;Some values may be more specific, some may be pretty abstract.
+I don’t think it matters, as long as you all understand what you mean and it’s making things better.
+Is unit testing your value, or is the code design quality your value… whatever, make it better, move on.&lt;/p&gt;
+
+&lt;p&gt;So that’s my experience in one practice which has helped team quality. &lt;/p&gt;
+
+&lt;p&gt;I’d love to hear about what others are doing to support quality in what they do, and whether you’ve tried similar practices. Did they help or hinder your team? &lt;/p&gt;
+
+&lt;p&gt;Jokes about the quality of my writing or spelling will be deleted ;)&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 09 Jan 2015 00:30:00 +1000</pubDate>
+        <link>http://danofhisword.com/agile/lean/team/culture/quality/2015/01/09/talking-about-quality.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/agile/lean/team/culture/quality/2015/01/09/talking-about-quality.html</guid>
+        
+        
+        <category>agile</category>
+        
+        <category>lean</category>
+        
+        <category>team</category>
+        
+        <category>culture</category>
+        
+        <category>quality</category>
+        
+      </item>
+    
+      <item>
+        <title>Microservice Testing Links</title>
+        <description>&lt;p&gt;Some general links and references for microservices testing I found interesting or useful, I’ll add to these as I find more …  &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.goodreads.com/book/show/8686650-continuous-delivery&quot;&gt;Continuous Delivery book - Humble/Farley&lt;/a&gt; … go read it!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://martinfowler.com/articles/microservice-testing/&quot;&gt;Toby Clemson - Testing Strategies in a Microservice Architecture&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://techblog.realestate.com.au/testing-interactions-with-web-services-without-integration-tests-in-ruby/&quot;&gt;REA - Testing interactions with web services without integration tests in Ruby&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://vimeo.com/80533536&quot;&gt;J.B. Rainsberger - Video, Integrated Tests Are A Scam&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Pact&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/realestate-com-au/pact&quot;&gt;pact&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://dius.com.au/2014/05/19/simplifying-micro-service-testing-with-pacts/&quot;&gt;Simplifying Micro Service Testing With Pacts&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/DiUS/pact-jvm&quot;&gt;pact-jvm&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://swagger.io/&quot;&gt;swagger&lt;/a&gt; .. handy for exploratory testing your api &lt;/p&gt;
+
+&lt;p&gt;Test Doubles&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wiremock.org&quot;&gt;Wiremock&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/vcr/vcr&quot;&gt;VCR&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://martinfowler.com/bliki/SelfInitializingFake.html&quot;&gt;Self Initializing Fakes&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://code.google.com/p/subethasmtp/wiki/Wiser&quot;&gt;Wiser&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://robohydra.org/&quot;&gt;robohydra&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://qafoo.com/blog/071_testing_micro_services.html&quot;&gt;QAFoo Testing Micro Services&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 02 Dec 2014 18:03:00 +1000</pubDate>
+        <link>http://danofhisword.com/test/dev/microservices/2014/12/02/microservices-testing-links.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/test/dev/microservices/2014/12/02/microservices-testing-links.html</guid>
+        
+        
+        <category>test</category>
+        
+        <category>dev</category>
+        
+        <category>microservices</category>
+        
+      </item>
     
       <item>
         <title>Sharing and Isolating Steps and State in Cucumber JVM and Groovy</title>
@@ -129,11 +300,11 @@ This was kind of the discovery for me that led to the pattern I have now for bet
 
 &lt;p&gt;&lt;b&gt;UPDATE&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;A collegue of mine also mentioned the use of the Groovy &lt;a href=&quot;http://groovy.codehaus.org/gapi/groovy/transform/Field.html&quot;&gt;@Field&lt;/a&gt; annotation on your global fields, so you could see them in other step files. &lt;/p&gt;
+&lt;p&gt;Someone also mentioned to me the use of the Groovy &lt;a href=&quot;http://groovy.codehaus.org/gapi/groovy/transform/Field.html&quot;&gt;@Field&lt;/a&gt; annotation on your global fields, so you could see them in other step files. &lt;/p&gt;
 
 &lt;p&gt;Probably something to use at your discretion w.r.t global state.&lt;/p&gt;
 
-&lt;p&gt;I need to play with it some more, could be a simpler solution than what I have above!  &lt;/p&gt;
+&lt;p&gt;I need to play with it some more, could be a much simpler solution than what I have above for sharing!   &lt;/p&gt;
 
 &lt;p&gt;In shared script:&lt;/p&gt;
 

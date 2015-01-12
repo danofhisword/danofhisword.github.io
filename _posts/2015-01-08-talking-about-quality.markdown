@@ -5,7 +5,7 @@ date:   2015-1-8 14:30:00
 categories: agile lean team culture quality
 ---
 
-Over the last 12 months I've been thinking about "quality" a lot and what it means in lean and agile teams.
+Over time I've been thinking about "quality" a lot and what it means in lean and agile teams.
 
 The thing is, quality means different things to different people;<br/>
 

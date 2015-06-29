@@ -72,18 +72,18 @@
   </header>
 
   <article class="post-content">
-    <p>Dropwizard resources support some great declarative <a href="http://dropwizard.io/manual/core.html#validation">validation</a> with the @Valid annotation. </p>
+    <p>Dropwizard resources support some great declarative <a href="http://dropwizard.io/manual/core.html#validation">validation</a> with the @Valid annotation.</p>
 
 <p>However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
 See <a href="https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jersey/src/main/java/io/dropwizard/jersey/validation/ConstraintViolationExceptionMapper.java">ConstraintViolationExceptionMapper</a> and <a href="https://github.com/dropwizard/dropwizard/blob/2655ac703a0f6ddb4eae933a74dae3d12fde287f/dropwizard-validation/src/main/java/io/dropwizard/validation/ConstraintViolations.java">ConstraintViolations</a> format method.</p>
 
 <p>If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!</p>
 
-<p>For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response. </p>
+<p>For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response.</p>
 
 <p>A sample of triggering validation manually is below … (you should probably inject the ValidatorFactory etc into where you need it).</p>
 
-<p>Jump into your debugger and inspect the violations objects returned … of interest is usually the properties that violated, and their associated messages. </p>
+<p>Jump into your debugger and inspect the violations objects returned … of interest is usually the properties that violated, and their associated messages.</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ValidatorFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">();</span>	
         <span class="n">Validator</span> <span class="n">validator</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getValidator</span><span class="o">();</span>

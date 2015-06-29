@@ -6,9 +6,47 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 12 Jan 2015 15:45:42 +1000</pubDate>
-    <lastBuildDate>Mon, 12 Jan 2015 15:45:42 +1000</lastBuildDate>
-    <generator>Jekyll v2.4.0</generator>
+    <pubDate>Mon, 29 Jun 2015 17:15:08 +1000</pubDate>
+    <lastBuildDate>Mon, 29 Jun 2015 17:15:08 +1000</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Dropwizard Logging Inbound/Outbound Http Request Bodies</title>
+        <description>&lt;p&gt;For ease of debugging and testing, I needed to support logging all inbound and outbound http requests and responses including the body from my service built with DropWizard 0.8.1 app.&lt;/p&gt;
+
+&lt;p&gt;I got this happening as follows, using a LoggingFilters with Jersey.&lt;/p&gt;
+
+&lt;p&gt;Note, the “true” parameter in code below, this causes response and request body to be logged …&lt;/p&gt;
+
+&lt;p&gt;Everything comes out as INFO level so make sure you’re config.yaml is set to a suitable log level to see it.&lt;/p&gt;
+
+&lt;p&gt;Hope it helps!&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/* snip */&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Logging outbound request/response &lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Client&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;JerseyClientBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;myclient&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+      &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LoggingFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Logger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;OutboundRequestResponse&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* snip */&lt;/span&gt;
+      
+  &lt;span class=&quot;c1&quot;&gt;// Logging inbound request/response &lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;LoggingFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Logger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;InboundRequestResponse&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* snip */&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 30 Jun 2015 03:30:00 +1000</pubDate>
+        <link>http://danofhisword.com/dev/dropwizard/2015/06/30/dropwizard-logging.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/dev/dropwizard/2015/06/30/dropwizard-logging.html</guid>
+        
+        
+        <category>dev</category>
+        
+        <category>dropwizard</category>
+        
+      </item>
     
       <item>
         <title>Talking About Quality?</title>
@@ -40,17 +78,17 @@ Once the practices become culture we often don’t even need to revisit anymore.
 &lt;p&gt;I’ve experienced a team agree that commit test automation was a big Quality Value for them (helping code design quality).
 The team revisited it at first retro and found it was low (and the code design reflected that).&lt;/p&gt;
 
-&lt;p&gt;Everyone agreed the Quality Value was still important, and took steps to adjust practices and test coverage was almost 100% next retro and refactored code design quality was higher.We adjusted our practices and that became part of our team culture. Test automation continued to remain high, it was just a given and it worked for us. &lt;/p&gt;
+&lt;p&gt;Everyone agreed the Quality Value was still important, and took steps to adjust practices and test coverage was almost 100% next retro and refactored code design quality was higher.We adjusted our practices and that became part of our team culture. Test automation continued to remain high, it was just a given and it worked for us.&lt;/p&gt;
 
-&lt;p&gt;The rapid ability to change the codebase due to the design quality was the commercial payback of the Quality Values. &lt;/p&gt;
+&lt;p&gt;The rapid ability to change the codebase due to the design quality was the commercial payback of the Quality Values.&lt;/p&gt;
 
 &lt;h2&gt;How to Get There - Workshop It!&lt;/h2&gt;
 
 &lt;p&gt;Is quality even a priority? Decide that first. 
 All “stakeholders” in the project/team/product should agree if it is a priority. 
-That should include the folk who are paying the bills and will own the product etc. &lt;/p&gt;
+That should include the folk who are paying the bills and will own the product etc.&lt;/p&gt;
 
-&lt;p&gt;A set of Success Sliders can help here… I find that when it’s made visible, few people put Quality down the bottom, unless there is &lt;u&gt;purposeful reason&lt;/u&gt; to do so. &lt;/p&gt;
+&lt;p&gt;A set of Success Sliders can help here… I find that when it’s made visible, few people put Quality down the bottom, unless there is &lt;u&gt;purposeful reason&lt;/u&gt; to do so.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/SuccessSliders.png&quot; height=&quot;200px&quot; /&gt;&lt;/p&gt;
 
@@ -64,15 +102,15 @@ They are real, fun and fast (it parrallelizes the process of getting everyones i
 &lt;p&gt;So maybe start off with a question; &lt;i&gt;“so we agree quality is priority. What do you believe is quality and what do you think it achieves”&lt;/i&gt;.
 Then have people busy themselves in a timebox sticking notes on the wall.
 Then someone can organizes the notes into themes or common groupings. 
-Just talk them through, agree, disagree, debate, talk, listen, come out with a manageable set of ideas that represents your values. &lt;/p&gt;
+Just talk them through, agree, disagree, debate, talk, listen, come out with a manageable set of ideas that represents your values.&lt;/p&gt;
 
 &lt;p&gt;You can then do something as simple as keep these on your team space wall, nice and visible and tick vote them in retro if going poorly.
 Or if you like the electronic ways (which I don’t), add them in your wiki or some list you can revisit.&lt;/p&gt;
 
 &lt;p&gt;Put them on the wall, allow people to talk about your Quality Values, let people know your values (especially new team members).
-Keep practicing your values, adapt your values if you need. &lt;/p&gt;
+Keep practicing your values, adapt your values if you need.&lt;/p&gt;
 
-&lt;p&gt;Some of the stuff that’s come up for my teams includes more technical things like: &lt;/p&gt;
+&lt;p&gt;Some of the stuff that’s come up for my teams includes more technical things like:&lt;/p&gt;
 
 &lt;ul&gt;
     &lt;li&gt;We&#39;ll make sure keeping builds green is a priority&lt;/li&gt;
@@ -84,7 +122,7 @@ Keep practicing your values, adapt your values if you need. &lt;/p&gt;
     &lt;li&gt;We&#39;ll ship small batches often&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;and people things like: &lt;/p&gt;
+&lt;p&gt;and people things like:&lt;/p&gt;
 
 &lt;ul&gt;
     &lt;li&gt;We&#39;ll actively engage with others when we need guidance&lt;/li&gt;
@@ -92,7 +130,7 @@ Keep practicing your values, adapt your values if you need. &lt;/p&gt;
     &lt;li&gt;We&#39;ll actively leverage pairing and &quot;over the shoulder&quot; review with peers&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;and product things like:  &lt;/p&gt;
+&lt;p&gt;and product things like:&lt;/p&gt;
 
 &lt;ul&gt;
     &lt;li&gt;We&#39;ll make sure our product works across browsers X, Y and Z&lt;/li&gt;
@@ -107,9 +145,9 @@ Communicate them at a high level even, maybe you believe in “Technical Quality
 I don’t think it matters, as long as you all understand what you mean and it’s making things better.
 Is unit testing your value, or is the code design quality your value… whatever, make it better, move on.&lt;/p&gt;
 
-&lt;p&gt;So that’s my experience in one practice which has helped team quality. &lt;/p&gt;
+&lt;p&gt;So that’s my experience in one practice which has helped team quality.&lt;/p&gt;
 
-&lt;p&gt;I’d love to hear about what others are doing to support quality in what they do, and whether you’ve tried similar practices. Did they help or hinder your team? &lt;/p&gt;
+&lt;p&gt;I’d love to hear about what others are doing to support quality in what they do, and whether you’ve tried similar practices. Did they help or hinder your team?&lt;/p&gt;
 
 &lt;p&gt;Jokes about the quality of my writing or spelling will be deleted ;)&lt;/p&gt;
 
@@ -133,7 +171,7 @@ Is unit testing your value, or is the code design quality your value… whatever
     
       <item>
         <title>Microservice Testing Links</title>
-        <description>&lt;p&gt;Some general links and references for microservices testing I found interesting or useful, I’ll add to these as I find more …  &lt;/p&gt;
+        <description>&lt;p&gt;Some general links and references for microservices testing I found interesting or useful, I’ll add to these as I find more …&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.goodreads.com/book/show/8686650-continuous-delivery&quot;&gt;Continuous Delivery book - Humble/Farley&lt;/a&gt; … go read it!&lt;/p&gt;
 
@@ -145,13 +183,13 @@ Is unit testing your value, or is the code design quality your value… whatever
 
 &lt;p&gt;Pact&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/realestate-com-au/pact&quot;&gt;pact&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/realestate-com-au/pact&quot;&gt;pact&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://dius.com.au/2014/05/19/simplifying-micro-service-testing-with-pacts/&quot;&gt;Simplifying Micro Service Testing With Pacts&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/DiUS/pact-jvm&quot;&gt;pact-jvm&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/DiUS/pact-jvm&quot;&gt;pact-jvm&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://swagger.io/&quot;&gt;swagger&lt;/a&gt; .. handy for exploratory testing your api &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://swagger.io/&quot;&gt;swagger&lt;/a&gt; .. handy for exploratory testing your api&lt;/p&gt;
 
 &lt;p&gt;Test Doubles&lt;/p&gt;
 
@@ -197,7 +235,7 @@ I hope it at least gives some ideas to others or helps someone come up with some
 &lt;p&gt;I was hoping to make it quicker to compose new Scenarios, quicker to modify and maintain by drying up my code a bit.
 Cucumber and Groovy can be a bit challenging, the way step files are compiled and the scope of variables between them seemed to cause me the challenges.&lt;/p&gt;
 
-&lt;p&gt;I also desired to encapsulate some state and operations so they are not shared, to avoid wierd global state side-effects impacting Scenarios. &lt;/p&gt;
+&lt;p&gt;I also desired to encapsulate some state and operations so they are not shared, to avoid wierd global state side-effects impacting Scenarios.&lt;/p&gt;
 
 &lt;p&gt;My general desire was:&lt;/p&gt;
 
@@ -231,7 +269,7 @@ Cucumber and Groovy can be a bit challenging, the way step files are compiled an
 &lt;p&gt;I defined the World once, but I use @Before hooks to refresh the World properties in place.&lt;/p&gt;
 
 &lt;p&gt;Note, I also pass the world reference in (delegate) when I create the step state, so I can use properties from the world internally or delegate to it.
-This was kind of the discovery for me that led to the pattern I have now for better or worse. &lt;/p&gt;
+This was kind of the discovery for me that led to the pattern I have now for better or worse.&lt;/p&gt;
 
 &lt;p&gt;Here’s an example shared steps file:&lt;/p&gt;
 
@@ -290,7 +328,7 @@ This was kind of the discovery for me that led to the pattern I have now for bet
     &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sharedProperty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;And a feature: &lt;/p&gt;
+&lt;p&gt;And a feature:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@MyFeature&lt;/span&gt;
 &lt;span class=&quot;nl&quot;&gt;Feature:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt;
@@ -300,11 +338,11 @@ This was kind of the discovery for me that led to the pattern I have now for bet
 
 &lt;p&gt;&lt;b&gt;UPDATE&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;Someone also mentioned to me the use of the Groovy &lt;a href=&quot;http://groovy.codehaus.org/gapi/groovy/transform/Field.html&quot;&gt;@Field&lt;/a&gt; annotation on your global fields, so you could see them in other step files. &lt;/p&gt;
+&lt;p&gt;Someone also mentioned to me the use of the Groovy &lt;a href=&quot;http://groovy.codehaus.org/gapi/groovy/transform/Field.html&quot;&gt;@Field&lt;/a&gt; annotation on your global fields, so you could see them in other step files.&lt;/p&gt;
 
 &lt;p&gt;Probably something to use at your discretion w.r.t global state.&lt;/p&gt;
 
-&lt;p&gt;I need to play with it some more, could be a much simpler solution than what I have above for sharing!   &lt;/p&gt;
+&lt;p&gt;I need to play with it some more, could be a much simpler solution than what I have above for sharing!&lt;/p&gt;
 
 &lt;p&gt;In shared script:&lt;/p&gt;
 
@@ -333,7 +371,7 @@ SomeObject myObject&lt;/p&gt;
     
       <item>
         <title>DropwizardAppRule, Wiremock and GZIP</title>
-        <description>&lt;p&gt;I had a bit of challenge when using WireMock to do some stubbed testing in my DropWizard app. &lt;/p&gt;
+        <description>&lt;p&gt;I had a bit of challenge when using WireMock to do some stubbed testing in my DropWizard app.&lt;/p&gt;
 
 &lt;p&gt;This was because wiremock didn’t support GZIP and the Jersey client had it on by default.
 I found my requests weren’t matching up when using .withRequestBody()…&lt;/p&gt;
@@ -341,12 +379,12 @@ I found my requests weren’t matching up when using .withRequestBody()…&lt;/p
 &lt;p&gt;The result being the same as described &lt;a href=&quot;https://github.com/tomakehurst/wiremock/issues/106&quot;&gt;here&lt;/a&gt;, “com.github.tomakehurst.wiremock.common.Log4jNotifier: URL /foobar is match, but body is not”&lt;/p&gt;
 
 &lt;p&gt;I got around this in my test by having the stubbed test run without GZIP on the default DropWizard Jersey Client
-As I was using a DropwizardAppRule, I used config override as below … &lt;/p&gt;
+As I was using a DropwizardAppRule, I used config override as below …&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;defaultHttpClient.gzipEnabled&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;false&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;defaultHttpClient.gzipEnabledForRequests&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;false&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;You can see my post on &lt;a href=&quot;http://danofhisword.com/dev/dropwizard/2014/09/25/dropwizard-testing-config-overrides.html&quot;&gt;Config Overrides&lt;/a&gt; for more info on using overrides in general. &lt;/p&gt;
+&lt;p&gt;You can see my post on &lt;a href=&quot;http://danofhisword.com/dev/dropwizard/2014/09/25/dropwizard-testing-config-overrides.html&quot;&gt;Config Overrides&lt;/a&gt; for more info on using overrides in general.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 05 Nov 2014 01:20:00 +1000</pubDate>
@@ -366,9 +404,9 @@ As I was using a DropwizardAppRule, I used config override as below … &lt;/p&g
         <title>Dropwizard Integrated Testing and ConfigOverride</title>
         <description>&lt;p&gt;Dropwizard supports integrated testing of via &lt;a href=&quot;http://dropwizard.io/manual/testing.html#integrated-testing&quot;&gt;DropwizardAppRule&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;When you spin up the app, you might want to use your default config.yml file and just override some of the values, specific for your test scenario. &lt;/p&gt;
+&lt;p&gt;When you spin up the app, you might want to use your default config.yml file and just override some of the values, specific for your test scenario.&lt;/p&gt;
 
-&lt;p&gt;You can use DropwizardAppRule and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-testing/src/main/java/io/dropwizard/testing/junit/ConfigOverride.java&quot;&gt;io.dropwizard.testing.junit.ConfigOverride&lt;/a&gt; to achieve this. &lt;/p&gt;
+&lt;p&gt;You can use DropwizardAppRule and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-testing/src/main/java/io/dropwizard/testing/junit/ConfigOverride.java&quot;&gt;io.dropwizard.testing.junit.ConfigOverride&lt;/a&gt; to achieve this.&lt;/p&gt;
 
 &lt;p&gt;Say you have a config yml like:&lt;/p&gt;
 
@@ -383,7 +421,7 @@ As I was using a DropwizardAppRule, I used config override as below … &lt;/p&g
 &lt;span class=&quot;nl&quot;&gt;someother:&lt;/span&gt;
     &lt;span class=&quot;nl&quot;&gt;magicConfig:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;somevalue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;You can overide some of the configs like following, where I use a base config.yml file, then override a port and set another config value: &lt;/p&gt;
+&lt;p&gt;You can overide some of the configs like following, where I use a base config.yml file, then override a port and set another config value:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@ClassRule&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DropwizardAppRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;YourConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RULE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
@@ -393,10 +431,10 @@ As I was using a DropwizardAppRule, I used config override as below … &lt;/p&g
                     &lt;span class=&quot;n&quot;&gt;ConfigOverride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;someother.magicConfig&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;someothervalue&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
                     &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;You’ll note that some config nodes are collections (like server.applicationConnectors above), and you have to index reference them… &lt;/p&gt;
+&lt;p&gt;You’ll note that some config nodes are collections (like server.applicationConnectors above), and you have to index reference them…&lt;/p&gt;
 
 &lt;p&gt;I didn’t find a good way to figure this out, other than using my debugger and seeing what was and wasn’t a collection as the DropwizardAppRule started up. 
-There’s probably a sensible reason here for what is or isn’t a collection, but I didn’t think that hard about it :) &lt;/p&gt;
+There’s probably a sensible reason here for what is or isn’t a collection, but I didn’t think that hard about it :)&lt;/p&gt;
 
 &lt;p&gt;Anyways, I couldn’t find much info online about using ConfigOverides, so after a bit of source code digging this was what I came up with, hope it helps!&lt;/p&gt;
 
@@ -437,7 +475,7 @@ There’s probably a sensible reason here for what is or isn’t a collection, b
   &lt;span class=&quot;c1&quot;&gt;// Expecting a 422 ... &lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;422&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;But instead you might get a RuntimeException something like… &lt;/p&gt;
+&lt;p&gt;But instead you might get a RuntimeException something like…&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ERROR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2014&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;09&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sun&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;spi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ContainerResponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RuntimeException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;could&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapped&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;throwing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HTTP&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;container&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;javax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ConstraintViolationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;had&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;errors:&lt;/span&gt;
@@ -453,7 +491,7 @@ There’s probably a sensible reason here for what is or isn’t a collection, b
             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolationExceptionMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Now, you should see your normal 422 responses and error messages come out when using ResourceTestRule! &lt;/p&gt;
+&lt;p&gt;Now, you should see your normal 422 responses and error messages come out when using ResourceTestRule!&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 26 Sep 2014 03:06:35 +1000</pubDate>
@@ -469,18 +507,18 @@ There’s probably a sensible reason here for what is or isn’t a collection, b
     
       <item>
         <title>Going Manual on Dropwizard Validation</title>
-        <description>&lt;p&gt;Dropwizard resources support some great declarative &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;validation&lt;/a&gt; with the @Valid annotation. &lt;/p&gt;
+        <description>&lt;p&gt;Dropwizard resources support some great declarative &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;validation&lt;/a&gt; with the @Valid annotation.&lt;/p&gt;
 
 &lt;p&gt;However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
 See &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jersey/src/main/java/io/dropwizard/jersey/validation/ConstraintViolationExceptionMapper.java&quot;&gt;ConstraintViolationExceptionMapper&lt;/a&gt; and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/2655ac703a0f6ddb4eae933a74dae3d12fde287f/dropwizard-validation/src/main/java/io/dropwizard/validation/ConstraintViolations.java&quot;&gt;ConstraintViolations&lt;/a&gt; format method.&lt;/p&gt;
 
 &lt;p&gt;If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!&lt;/p&gt;
 
-&lt;p&gt;For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response. &lt;/p&gt;
+&lt;p&gt;For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response.&lt;/p&gt;
 
 &lt;p&gt;A sample of triggering validation manually is below … (you should probably inject the ValidatorFactory etc into where you need it).&lt;/p&gt;
 
-&lt;p&gt;Jump into your debugger and inspect the violations objects returned … of interest is usually the properties that violated, and their associated messages. &lt;/p&gt;
+&lt;p&gt;Jump into your debugger and inspect the violations objects returned … of interest is usually the properties that violated, and their associated messages.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ValidatorFactory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDefaultValidatorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;	
         &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;

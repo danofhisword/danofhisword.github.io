@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="google-site-verification" content="cXw3sTxFGBIgQyQV8aRFRuAtC_DJ4-MZUzjuhhHwsEY" />
-    <title>Microservice Testing Links</title>
+    <title>Dropwizard Logging Inbound/Outbound Http Request Bodies</title>
     <meta name="description" content="Some ramblings about code, architecture, teams and other stuff. Hopefully they help someone... opinions are my own. Play nice, be kind.
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://danofhisword.com/test/dev/microservices/2014/12/02/microservices-testing-links.html">
+    <link rel="canonical" href="http://danofhisword.com/dev/dropwizard/2015/06/30/dropwizard-logging.html">
     <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -67,44 +67,34 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Microservice Testing Links</h1>
-    <p class="post-meta">Dec 2, 2014</p>
+    <h1 class="post-title">Dropwizard Logging Inbound/Outbound Http Request Bodies</h1>
+    <p class="post-meta">Jun 30, 2015</p>
   </header>
 
   <article class="post-content">
-    <p>Some general links and references for microservices testing I found interesting or useful, I’ll add to these as I find more …</p>
+    <p>For ease of debugging and testing, I needed to support logging all inbound and outbound http requests and responses including the body from my service built with DropWizard 0.8.1 app.</p>
 
-<p><a href="http://www.goodreads.com/book/show/8686650-continuous-delivery">Continuous Delivery book - Humble/Farley</a> … go read it!</p>
+<p>I got this happening as follows, using a LoggingFilters with Jersey.</p>
 
-<p><a href="http://martinfowler.com/articles/microservice-testing/">Toby Clemson - Testing Strategies in a Microservice Architecture</a></p>
+<p>Note, the “true” parameter in code below, this causes response and request body to be logged …</p>
 
-<p><a href="http://techblog.realestate.com.au/testing-interactions-with-web-services-without-integration-tests-in-ruby/">REA - Testing interactions with web services without integration tests in Ruby</a></p>
+<p>Everything comes out as INFO level so make sure you’re config.yaml is set to a suitable log level to see it.</p>
 
-<p><a href="http://vimeo.com/80533536">J.B. Rainsberger - Video, Integrated Tests Are A Scam</a></p>
+<p>Hope it helps!</p>
 
-<p>Pact</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/* snip */</span>
 
-<p><a href="https://github.com/realestate-com-au/pact">pact</a></p>
+  <span class="c1">// Logging outbound request/response </span>
+  <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">JerseyClientBuilder</span><span class="o">(</span><span class="n">environment</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="s">&quot;myclient&quot;</span><span class="o">)</span> 
+      <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nf">LoggingFilter</span><span class="o">(</span><span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;OutboundRequestResponse&quot;</span><span class="o">),</span> <span class="kc">true</span><span class="o">));</span>
 
-<p><a href="http://dius.com.au/2014/05/19/simplifying-micro-service-testing-with-pacts/">Simplifying Micro Service Testing With Pacts</a></p>
+<span class="cm">/* snip */</span>
+      
+  <span class="c1">// Logging inbound request/response </span>
+  <span class="n">environment</span><span class="o">.</span><span class="na">jersey</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nf">LoggingFilter</span><span class="o">(</span><span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;InboundRequestResponse&quot;</span><span class="o">),</span> <span class="kc">true</span><span class="o">));</span>
 
-<p><a href="https://github.com/DiUS/pact-jvm">pact-jvm</a></p>
-
-<p><a href="http://swagger.io/">swagger</a> .. handy for exploratory testing your api</p>
-
-<p>Test Doubles</p>
-
-<p><a href="http://wiremock.org">Wiremock</a></p>
-
-<p><a href="https://github.com/vcr/vcr">VCR</a></p>
-
-<p><a href="http://martinfowler.com/bliki/SelfInitializingFake.html">Self Initializing Fakes</a></p>
-
-<p><a href="https://code.google.com/p/subethasmtp/wiki/Wiser">Wiser</a></p>
-
-<p><a href="http://robohydra.org/">robohydra</a></p>
-
-<p><a href="http://qafoo.com/blog/071_testing_micro_services.html">QAFoo Testing Micro Services</a></p>
+<span class="cm">/* snip */</span></code></pre></div>
 
 
   </article>

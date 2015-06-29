@@ -86,7 +86,7 @@ I hope it at least gives some ideas to others or helps someone come up with some
 <p>I was hoping to make it quicker to compose new Scenarios, quicker to modify and maintain by drying up my code a bit.
 Cucumber and Groovy can be a bit challenging, the way step files are compiled and the scope of variables between them seemed to cause me the challenges.</p>
 
-<p>I also desired to encapsulate some state and operations so they are not shared, to avoid wierd global state side-effects impacting Scenarios. </p>
+<p>I also desired to encapsulate some state and operations so they are not shared, to avoid wierd global state side-effects impacting Scenarios.</p>
 
 <p>My general desire was:</p>
 
@@ -120,7 +120,7 @@ Cucumber and Groovy can be a bit challenging, the way step files are compiled an
 <p>I defined the World once, but I use @Before hooks to refresh the World properties in place.</p>
 
 <p>Note, I also pass the world reference in (delegate) when I create the step state, so I can use properties from the world internally or delegate to it.
-This was kind of the discovery for me that led to the pattern I have now for better or worse. </p>
+This was kind of the discovery for me that led to the pattern I have now for better or worse.</p>
 
 <p>Here’s an example shared steps file:</p>
 
@@ -179,7 +179,7 @@ This was kind of the discovery for me that led to the pattern I have now for bet
     <span class="k">assert</span> <span class="n">sharedProperty</span> <span class="o">!=</span> <span class="kc">null</span>
 <span class="o">}</span></code></pre></div>
 
-<p>And a feature: </p>
+<p>And a feature:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@MyFeature</span>
 <span class="nl">Feature:</span> <span class="n">A</span> <span class="n">feature</span>
@@ -189,11 +189,11 @@ This was kind of the discovery for me that led to the pattern I have now for bet
 
 <p><b>UPDATE</b></p>
 
-<p>Someone also mentioned to me the use of the Groovy <a href="http://groovy.codehaus.org/gapi/groovy/transform/Field.html">@Field</a> annotation on your global fields, so you could see them in other step files. </p>
+<p>Someone also mentioned to me the use of the Groovy <a href="http://groovy.codehaus.org/gapi/groovy/transform/Field.html">@Field</a> annotation on your global fields, so you could see them in other step files.</p>
 
 <p>Probably something to use at your discretion w.r.t global state.</p>
 
-<p>I need to play with it some more, could be a much simpler solution than what I have above for sharing!   </p>
+<p>I need to play with it some more, could be a much simpler solution than what I have above for sharing!</p>
 
 <p>In shared script:</p>
 

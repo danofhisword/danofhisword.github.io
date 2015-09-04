@@ -6,9 +6,52 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Jun 2015 17:15:08 +1000</pubDate>
-    <lastBuildDate>Mon, 29 Jun 2015 17:15:08 +1000</lastBuildDate>
+    <pubDate>Fri, 04 Sep 2015 13:52:54 +1000</pubDate>
+    <lastBuildDate>Fri, 04 Sep 2015 13:52:54 +1000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Reading List</title>
+        <description>&lt;p&gt;Just a list of some non-fiction books I’ve read or am reading and a list of stuff to remind me to read :)&lt;/p&gt;
+
+&lt;p&gt;I’ll updated this list now and then … might even include fiction books later on.&lt;/p&gt;
+
+&lt;h2&gt;read/reading:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Henrik Kniberg - &lt;a href=&quot;http://www.amazon.com/Lean-Trenches-Managing-Large-Scale-Projects/dp/1934356859&quot;&gt;Lean from the Trenches: Managing Large-Scale Projects with Kanban&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Sam Newman - &lt;a href=&quot;http://www.amazon.com/Building-Microservices-Sam-Newman/dp/1491950358&quot;&gt;Building Microservices&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Nir Eyal - &lt;a href=&quot;http://www.amazon.com/Hooked-How-Build-Habit-Forming-Products-ebook/dp/B00HJ4A43S&quot;&gt;Hooked: How to Build Habit-Forming Products&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Clayton Christenson - &lt;a href=&quot;http://www.amazon.com/The-Innovators-Solution-Sustaining-Successful/dp/1578518520&quot;&gt;The Innovator’s Solution: Creating and Sustaining Successful Growth&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;George Fairbanks - &lt;a href=&quot;http://www.amazon.com/Just-Enough-Software-Architecture-Risk-Driven/dp/0984618104&quot;&gt;Just Enough Software Architecture: A Risk-Driven Approach&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Jez Humble - &lt;a href=&quot;http://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912&quot;&gt;Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Eric Evans - &lt;a href=&quot;http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215&quot;&gt;Domain Driven Design&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Kent Beck - &lt;a href=&quot;http://www.amazon.com/Test-Driven-Development-By-Example/dp/0321146530&quot;&gt;Test Driven Development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Jason Freid - &lt;a href=&quot;http://www.amazon.com/Rework-Jason-Fried/dp/0307463745&quot;&gt;Rework&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Leonard Mlodinow - &lt;a href=&quot;http://www.amazon.com/The-Drunkards-Walk-Randomness-Rules/dp/0307275175&quot;&gt;The Drunkard’s Walk: How Randomness Rules Our Lives&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;… more to come&lt;/p&gt;
+
+&lt;h2&gt;future reading:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mary Lynn Manns - &lt;a href=&quot;http://www.amazon.com/Fearless-Change-Patterns-Introducing-Ideas/dp/0201741571&quot;&gt;Fearless Change: Patterns for Introducing New Ideas&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Russell Ackoff - &lt;a href=&quot;http://www.amazon.com/Re-Creating-Corporation-Design-Organizations-Century/dp/0195123875&quot;&gt;Re-Creating the Corporation: A Design of Organizations for the 21st Century&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Jeff Patton - &lt;a href=&quot;http://www.amazon.com/User-Story-Mapping-Discover-Product/dp/1491904909&quot;&gt;User Story Mapping: Discover the Whole Story, Build the Right Product&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Gojko Adzic - &lt;a href=&quot;http://www.amazon.com/Fifty-Quick-Ideas-Improve-Stories-ebook/dp/B00OGT2U7M&quot;&gt;Fifty Quick Ideas To Improve Your User Stories&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Tom Demarko - &lt;a href=&quot;http://www.amazon.com/Slack-Getting-Burnout-Busywork-Efficiency/dp/076790768X/&quot;&gt;Slack: Getting Past Burnout, Busywork, and the Myth of Total Efficiency&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 05 Sep 2015 03:30:00 +1000</pubDate>
+        <link>http://danofhisword.com/reading/2015/09/05/reading-list.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/reading/2015/09/05/reading-list.html</guid>
+        
+        
+        <category>reading</category>
+        
+      </item>
     
       <item>
         <title>Dropwizard Logging Inbound/Outbound Http Request Bodies</title>

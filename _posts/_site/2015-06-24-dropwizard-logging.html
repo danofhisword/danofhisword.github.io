@@ -1,0 +1,24 @@
+<p>For ease of debugging and testing, I needed to support logging all inbound and outbound http requests and responses including the body from my service built with DropWizard 0.8.1 app.</p>
+
+<p>I got this happening as follows, using a LoggingFilters with Jersey.</p>
+
+<p>Note, the “true” parameter in code below, this causes response and request body to be logged …</p>
+
+<p>Everything comes out as INFO level so make sure you’re config.yaml is set to a suitable log level to see it.</p>
+
+<p>Hope it helps!</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/* snip */</span>
+
+  <span class="c1">// Logging outbound request/response </span>
+  <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">JerseyClientBuilder</span><span class="o">(</span><span class="n">environment</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="s">&quot;myclient&quot;</span><span class="o">)</span> 
+      <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nf">LoggingFilter</span><span class="o">(</span><span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;OutboundRequestResponse&quot;</span><span class="o">),</span> <span class="kc">true</span><span class="o">));</span>
+
+<span class="cm">/* snip */</span>
+      
+  <span class="c1">// Logging inbound request/response </span>
+  <span class="n">environment</span><span class="o">.</span><span class="na">jersey</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nf">LoggingFilter</span><span class="o">(</span><span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;InboundRequestResponse&quot;</span><span class="o">),</span> <span class="kc">true</span><span class="o">));</span>
+
+<span class="cm">/* snip */</span></code></pre></div>
+

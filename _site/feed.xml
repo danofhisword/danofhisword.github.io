@@ -6,8 +6,8 @@
 </description>
     <link>http://danofhisword.com/</link>
     <atom:link href="http://danofhisword.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 04 Sep 2015 13:52:54 +1000</pubDate>
-    <lastBuildDate>Fri, 04 Sep 2015 13:52:54 +1000</lastBuildDate>
+    <pubDate>Fri, 04 Sep 2015 14:16:49 +1000</pubDate>
+    <lastBuildDate>Fri, 04 Sep 2015 14:16:49 +1000</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -50,6 +50,66 @@
         
         
         <category>reading</category>
+        
+      </item>
+    
+      <item>
+        <title>X-HTTP-Method-Override in Dropwizard 0.8</title>
+        <description>&lt;p&gt;X-HTTP-Method-Override might be handly when you want to use PATCH in an environment where the client or network only support POST.&lt;/p&gt;
+
+&lt;p&gt;Hanselman talks about it &lt;a href=&quot;http://www.hanselman.com/blog/HTTPPUTOrDELETENotAllowedUseXHTTPMethodOverrideForYourRESTServiceWithASPNETWebAPI.aspx&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This can be achieved in Dropwizard 0.8.2 using Jersey HttpMethodOverrideFilter as follows:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;YourConfiguration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jersey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HttpMethodOverrideFilter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// support X-HTTP-Method-Override&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here’s a sample Jersey client using X-HTTP-Method-Override and POST with JSON patch:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;JerseyClientBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+ 	 	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://localhost:8080/patchable/1&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;X-HTTP-Method-Override&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;PATCH&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Entity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;[{\&amp;quot;op\&amp;quot;:\&amp;quot;remove\&amp;quot;,\&amp;quot;path\&amp;quot;:\&amp;quot;/foo\&amp;quot;}]&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 05 Sep 2015 03:30:00 +1000</pubDate>
+        <link>http://danofhisword.com/reading/2015/09/05/X-HTTP-Method-Override.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/reading/2015/09/05/X-HTTP-Method-Override.html</guid>
+        
+        
+        <category>reading</category>
+        
+      </item>
+    
+      <item>
+        <title>Dropwizard Jersey Client 2.21 Http PATCH</title>
+        <description>&lt;p&gt;Small trick when using HTTP PATCH on Jersey HTTP client …
+You may have to flick the switch  HttpUrlConnectorProvider.SET_METHOD_WORKAROUND to true&lt;/p&gt;
+
+&lt;p&gt;I found solution &lt;a href=&quot;http://jersey.576304.n2.nabble.com/Sending-a-PATCH-request-from-JAX-RS-client-td7583240.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Beware the &lt;a href=&quot;https://jersey.java.net/apidocs/2.11/jersey/org/glassfish/jersey/client/HttpUrlConnectorProvider.html#SET_METHOD_WORKAROUND&quot;&gt;documentation statement&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;“NOTE: Enabling this property may cause security related warnings/errors and it may break when other JDK implementation is used. Use only when you know what you are doing”&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://localhost:8080/patchable/1&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;property&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HttpUrlConnectorProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SET_METHOD_WORKAROUND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;PATCH&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Entity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 05 Sep 2015 03:30:00 +1000</pubDate>
+        <link>http://danofhisword.com/dev/2015/09/05/Jersey-Client-Http-Patch.html</link>
+        <guid isPermaLink="true">http://danofhisword.com/dev/2015/09/05/Jersey-Client-Http-Patch.html</guid>
+        
+        
+        <category>dev</category>
         
       </item>
     
@@ -540,42 +600,6 @@ There’s probably a sensible reason here for what is or isn’t a collection, b
         <pubDate>Fri, 26 Sep 2014 03:06:35 +1000</pubDate>
         <link>http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-test-rule-validation.html</link>
         <guid isPermaLink="true">http://danofhisword.com/dev/dropwizard/2014/09/26/dropwizard-test-rule-validation.html</guid>
-        
-        
-        <category>dev</category>
-        
-        <category>dropwizard</category>
-        
-      </item>
-    
-      <item>
-        <title>Going Manual on Dropwizard Validation</title>
-        <description>&lt;p&gt;Dropwizard resources support some great declarative &lt;a href=&quot;http://dropwizard.io/manual/core.html#validation&quot;&gt;validation&lt;/a&gt; with the @Valid annotation.&lt;/p&gt;
-
-&lt;p&gt;However, Dropwizard does marshall the errors out to a response object for you and hides some of the underlying details whilst also string formatting a little.
-See &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/master/dropwizard-jersey/src/main/java/io/dropwizard/jersey/validation/ConstraintViolationExceptionMapper.java&quot;&gt;ConstraintViolationExceptionMapper&lt;/a&gt; and &lt;a href=&quot;https://github.com/dropwizard/dropwizard/blob/2655ac703a0f6ddb4eae933a74dae3d12fde287f/dropwizard-validation/src/main/java/io/dropwizard/validation/ConstraintViolations.java&quot;&gt;ConstraintViolations&lt;/a&gt; format method.&lt;/p&gt;
-
-&lt;p&gt;If the default Dropwizard behaviour meets your needs (often the case) you can stop reading now!&lt;/p&gt;
-
-&lt;p&gt;For my scenario, I wanted to keep the nice declaritive validation, but get a bit more insight into the error and also control of the response.&lt;/p&gt;
-
-&lt;p&gt;A sample of triggering validation manually is below … (you should probably inject the ValidatorFactory etc into where you need it).&lt;/p&gt;
-
-&lt;p&gt;Jump into your debugger and inspect the violations objects returned … of interest is usually the properties that violated, and their associated messages.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ValidatorFactory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDefaultValidatorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;	
-        &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConstraintViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SomeObjectToValidateType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;violations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;someInstanceToValidate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;violations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;You can usually build on that to create a custom response as you need, either manually rolling a Response object or by creating exceptions and plumbing that into the response pipeline with some &lt;a href=&quot;https://dropwizard.github.io/dropwizard/manual/core.html#error-handling&quot;&gt;error handling&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Like with anything, if you decide to go it alone, instead of using the standard built in Dropwizard functionality, make sure you have a good reason!&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 19 Sep 2014 03:06:35 +1000</pubDate>
-        <link>http://danofhisword.com/dev/dropwizard/2014/09/19/manually-dropwizard-validation.html</link>
-        <guid isPermaLink="true">http://danofhisword.com/dev/dropwizard/2014/09/19/manually-dropwizard-validation.html</guid>
         
         
         <category>dev</category>

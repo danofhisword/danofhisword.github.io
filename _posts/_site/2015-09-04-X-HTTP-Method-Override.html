@@ -1,0 +1,21 @@
+<p>X-HTTP-Method-Override might be handly when you want to use PATCH in an environment where the client or network only support POST.</p>
+
+<p>Hanselman talks about it <a href="http://www.hanselman.com/blog/HTTPPUTOrDELETENotAllowedUseXHTTPMethodOverrideForYourRESTServiceWithASPNETWebAPI.aspx">here</a></p>
+
+<p>This can be achieved in Dropwizard 0.8.2 using Jersey HttpMethodOverrideFilter as follows:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(</span><span class="n">YourConfiguration</span> <span class="n">configuration</span><span class="o">,</span> <span class="n">Environment</span> <span class="n">environment</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="n">environment</span><span class="o">.</span><span class="na">jersey</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nf">HttpMethodOverrideFilter</span><span class="o">());</span> <span class="c1">// support X-HTTP-Method-Override</span>
+        <span class="o">...</span>
+    <span class="o">}</span></code></pre></div>
+
+<p>Here’s a sample Jersey client using X-HTTP-Method-Override and POST with JSON patch:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">new</span> <span class="nf">JerseyClientBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">()</span>
+ 	 	<span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;http://localhost:8080/patchable/1&quot;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">&quot;X-HTTP-Method-Override&quot;</span><span class="o">,</span> <span class="s">&quot;PATCH&quot;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">json</span><span class="o">(</span><span class="s">&quot;[{\&quot;op\&quot;:\&quot;remove\&quot;,\&quot;path\&quot;:\&quot;/foo\&quot;}]&quot;</span><span class="o">));</span></code></pre></div>
+

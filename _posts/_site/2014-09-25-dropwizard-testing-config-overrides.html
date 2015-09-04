@@ -1,0 +1,36 @@
+<p>Dropwizard supports integrated testing of via <a href="http://dropwizard.io/manual/testing.html#integrated-testing">DropwizardAppRule</a>.</p>
+
+<p>When you spin up the app, you might want to use your default config.yml file and just override some of the values, specific for your test scenario.</p>
+
+<p>You can use DropwizardAppRule and <a href="https://github.com/dropwizard/dropwizard/blob/master/dropwizard-testing/src/main/java/io/dropwizard/testing/junit/ConfigOverride.java">io.dropwizard.testing.junit.ConfigOverride</a> to achieve this.</p>
+
+<p>Say you have a config yml like:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nl">server:</span>
+    <span class="nl">applicationConnectors:</span>
+       <span class="o">-</span> <span class="nl">type:</span> <span class="n">https</span>
+         <span class="nl">port:</span> <span class="mi">481</span>
+    <span class="nl">adminConnectors:</span>
+       <span class="o">-</span> <span class="nl">type:</span> <span class="n">http</span>
+         <span class="nl">port:</span> <span class="mi">482</span>
+
+<span class="nl">someother:</span>
+    <span class="nl">magicConfig:</span> <span class="n">somevalue</span></code></pre></div>
+
+<p>You can overide some of the configs like following, where I use a base config.yml file, then override a port and set another config value:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@ClassRule</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;</span><span class="n">YourConfig</span><span class="o">&gt;</span> <span class="n">RULE</span> <span class="o">=</span>
+    
+            <span class="k">new</span> <span class="n">DropwizardAppRule</span><span class="o">&lt;&gt;(</span><span class="n">YourService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;/path/to/your/config.yml&quot;</span><span class="o">,</span>
+                    <span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;server.applicationConnectors[0].port&quot;</span><span class="o">,</span> <span class="s">&quot;443&quot;</span><span class="o">),</span>           
+                    <span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;someother.magicConfig&quot;</span><span class="o">,</span> <span class="s">&quot;someothervalue&quot;</span><span class="o">)</span>
+                    <span class="o">);</span></code></pre></div>
+
+<p>You’ll note that some config nodes are collections (like server.applicationConnectors above), and you have to index reference them…</p>
+
+<p>I didn’t find a good way to figure this out, other than using my debugger and seeing what was and wasn’t a collection as the DropwizardAppRule started up. 
+There’s probably a sensible reason here for what is or isn’t a collection, but I didn’t think that hard about it :)</p>
+
+<p>Anyways, I couldn’t find much info online about using ConfigOverides, so after a bit of source code digging this was what I came up with, hope it helps!</p>
+

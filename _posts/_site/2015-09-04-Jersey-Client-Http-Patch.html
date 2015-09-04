@@ -1,0 +1,13 @@
+<p>Small trick when using patch on Jersey HTTP client…
+You have to flick the switch  HttpUrlConnectorProvider.SET_METHOD_WORKAROUND to true</p>
+
+<p>Beware the <a href="https://jersey.java.net/apidocs/2.11/jersey/org/glassfish/jersey/client/HttpUrlConnectorProvider.html#SET_METHOD_WORKAROUND">documentation statement</a>:</p>
+
+<p>“NOTE: Enabling this property may cause security related warnings/errors and it may break when other JDK implementation is used. Use only when you know what you are doing”</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">return</span> <span class="n">client</span>
+                <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;http://localhost:8080/patchable/1&quot;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="n">HttpUrlConnectorProvider</span><span class="o">.</span><span class="na">SET_METHOD_WORKAROUND</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">method</span><span class="o">(</span><span class="s">&quot;PATCH&quot;</span><span class="o">,</span> <span class="n">Entity</span><span class="o">.</span><span class="na">json</span><span class="o">(</span><span class="n">json</span><span class="o">));</span></code></pre></div>
+

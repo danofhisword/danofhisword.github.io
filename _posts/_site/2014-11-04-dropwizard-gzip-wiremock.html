@@ -1,0 +1,15 @@
+<p>I had a bit of challenge when using WireMock to do some stubbed testing in my DropWizard app.</p>
+
+<p>This was because wiremock didn’t support GZIP and the Jersey client had it on by default.
+I found my requests weren’t matching up when using .withRequestBody()…</p>
+
+<p>The result being the same as described <a href="https://github.com/tomakehurst/wiremock/issues/106">here</a>, “com.github.tomakehurst.wiremock.common.Log4jNotifier: URL /foobar is match, but body is not”</p>
+
+<p>I got around this in my test by having the stubbed test run without GZIP on the default DropWizard Jersey Client
+As I was using a DropwizardAppRule, I used config override as below …</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;defaultHttpClient.gzipEnabled&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">)</span>
+<span class="n">ConfigOverride</span><span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;defaultHttpClient.gzipEnabledForRequests&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">)</span></code></pre></div>
+
+<p>You can see my post on <a href="http://danofhisword.com/dev/dropwizard/2014/09/25/dropwizard-testing-config-overrides.html">Config Overrides</a> for more info on using overrides in general.</p>
+

@@ -21,12 +21,14 @@ I'll updated this list now and then ... might even include fiction books later o
 * Kent Beck - [Test Driven Development][Beck]
 * Jason Freid - [Rework][Freid] 
 * Leonard Mlodinow - [The Drunkard's Walk: How Randomness Rules Our Lives][Mlodinow]
+* Mary Lynn Manns - [More Fearless Change: Strategies for Making Your Ideas Happen][Manns]
+* Epley, Nicholas - [Mindwise: Why We Misunderstand What Others Think, Believe, Feel, and Want][Epley]
+* Cain, Susan - [Quiet: The Power of Introverts in a World That Can't Stop Talking][Cain]
 
-... more to come 
+... more to come! 
 
 <h2>future reading:</h2>
 
-* Mary Lynn Manns - [Fearless Change: Patterns for Introducing New Ideas][Manns]
 * Russell Ackoff - [Re-Creating the Corporation: A Design of Organizations for the 21st Century][Ackoff]
 * Jeff Patton - [User Story Mapping: Discover the Whole Story, Build the Right Product][Patton]
 * Gojko Adzic - [Fifty Quick Ideas To Improve Your User Stories][Adzic]
@@ -42,9 +44,11 @@ I'll updated this list now and then ... might even include fiction books later o
 [Beck]:http://www.amazon.com/Test-Driven-Development-By-Example/dp/0321146530
 [Freid]:http://www.amazon.com/Rework-Jason-Fried/dp/0307463745
 [Mlodinow]:http://www.amazon.com/The-Drunkards-Walk-Randomness-Rules/dp/0307275175
-[Manns]:http://www.amazon.com/Fearless-Change-Patterns-Introducing-Ideas/dp/0201741571
+[Manns]:http://www.amazon.com/gp/product/0133966445
 [Ackoff]:http://www.amazon.com/Re-Creating-Corporation-Design-Organizations-Century/dp/0195123875
 [Patton]:http://www.amazon.com/User-Story-Mapping-Discover-Product/dp/1491904909
 [Adzic]:http://www.amazon.com/Fifty-Quick-Ideas-Improve-Stories-ebook/dp/B00OGT2U7M
 [Demarko]:http://www.amazon.com/Slack-Getting-Burnout-Busywork-Efficiency/dp/076790768X/
+[Cain]: http://www.amazon.com/gp/product/0307352153
+[Epley]:http://www.amazon.com/gp/product/030774356X
 

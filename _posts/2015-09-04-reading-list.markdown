@@ -24,6 +24,7 @@ I'll updated this list now and then ... might even include fiction books later o
 * Mary Lynn Manns - [More Fearless Change: Strategies for Making Your Ideas Happen][Manns]
 * Epley, Nicholas - [Mindwise: Why We Misunderstand What Others Think, Believe, Feel, and Want][Epley]
 * Cain, Susan - [Quiet: The Power of Introverts in a World That Can't Stop Talking][Cain]
+* Subbu Allamaraju - [RESTful Web Services Cookbook: Solutions for Improving Scalability and Simplicity][Allamaraju]
 
 ... more to come! 
 
@@ -51,4 +52,5 @@ I'll updated this list now and then ... might even include fiction books later o
 [Demarko]:http://www.amazon.com/Slack-Getting-Burnout-Busywork-Efficiency/dp/076790768X/
 [Cain]: http://www.amazon.com/gp/product/0307352153
 [Epley]:http://www.amazon.com/gp/product/030774356X
+[Allamaraju]:http://www.amazon.com/RESTful-Web-Services-Cookbook-Scalability/dp/0596801688
 

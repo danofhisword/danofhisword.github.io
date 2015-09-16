@@ -30,6 +30,7 @@ I'll updated this list now and then ... might even include fiction books later o
 
 <h2>future reading:</h2>
 
+* Judith H. Katz - [Opening Doors to Teamwork and Collaboration: 4 Keys That Change Everything][Katz]
 * Russell Ackoff - [Re-Creating the Corporation: A Design of Organizations for the 21st Century][Ackoff]
 * Jeff Patton - [User Story Mapping: Discover the Whole Story, Build the Right Product][Patton]
 * Gojko Adzic - [Fifty Quick Ideas To Improve Your User Stories][Adzic]
@@ -53,4 +54,6 @@ I'll updated this list now and then ... might even include fiction books later o
 [Cain]: http://www.amazon.com/gp/product/0307352153
 [Epley]:http://www.amazon.com/gp/product/030774356X
 [Allamaraju]:http://www.amazon.com/RESTful-Web-Services-Cookbook-Scalability/dp/0596801688
+[Katz]:http://www.amazon.com/Opening-Doors-Teamwork-Collaboration-Everything/dp/1620648377
+
 

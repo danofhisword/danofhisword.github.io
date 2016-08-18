@@ -25,6 +25,9 @@ I'll updated this list now and then ... might even include fiction books later o
 * Epley, Nicholas - [Mindwise: Why We Misunderstand What Others Think, Believe, Feel, and Want][Epley]
 * Cain, Susan - [Quiet: The Power of Introverts in a World That Can't Stop Talking][Cain]
 * Subbu Allamaraju - [RESTful Web Services Cookbook: Solutions for Improving Scalability and Simplicity][Allamaraju]
+* Alexander Osterwalder & Yves Pigneur - [Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers][Yves]
+* Alexander Osterwalder & Yves Pigneur - [Value Proposition Design: How to Create Products and Services Customers Want (Strategyzer)][Yves2]
+* Eric Ries - [The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses][Ries]
 
 ... more to come! 
 
@@ -35,6 +38,7 @@ I'll updated this list now and then ... might even include fiction books later o
 * Jeff Patton - [User Story Mapping: Discover the Whole Story, Build the Right Product][Patton]
 * Gojko Adzic - [Fifty Quick Ideas To Improve Your User Stories][Adzic]
 * Tom Demarko - [Slack: Getting Past Burnout, Busywork, and the Myth of Total Efficiency][Demarko]
+* Jeff Sussna - [Designing Delivery: Rethinking IT in the Digital Service Economy][Sussna]
 
 [Kniberg]: http://www.amazon.com/Lean-Trenches-Managing-Large-Scale-Projects/dp/1934356859
 [Newman]: http://www.amazon.com/Building-Microservices-Sam-Newman/dp/1491950358
@@ -55,5 +59,8 @@ I'll updated this list now and then ... might even include fiction books later o
 [Epley]:http://www.amazon.com/gp/product/030774356X
 [Allamaraju]:http://www.amazon.com/RESTful-Web-Services-Cookbook-Scalability/dp/0596801688
 [Katz]:http://www.amazon.com/Opening-Doors-Teamwork-Collaboration-Everything/dp/1620648377
-
+[Sussna]:http://www.amazon.com/o/asin/1491949880/enterpriseint-20
+[Ries]:https://www.amazon.com/dp/0307887898
+[Yves]:https://www.amazon.com/Business-Model-Generation-Visionaries-Challengers/dp/0470876417
+[Yves2]:https://www.amazon.com/dp/1118968050
 
